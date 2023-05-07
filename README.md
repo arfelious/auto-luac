@@ -1,5 +1,5 @@
 # Auto-Luac
-Auto-luac sayesinde belirtilen klasör ve dosyalarınız sizin bir şey yapmanız gerekmeden .luac haline getirilir ve siz düzenledikçe yeniden derlenir.
+Auto-luac sayesinde belirtilen klasör ve dosyalarınız ekstra bir şey yapmanız gerekmeden .luac haline getirilir ve düzenlendikçe yeniden derlenir.
 ## Kullanım
 Dosyalar indirildikten sonra [baslat.bat](./baslat.bat) içindeki betik mümkünse [index.exe](./index.exe) dosyasını, aksi takdirde [Node.js](https://nodejs.org/en/download) aracılığıyla [index.js](./index.js) dosyasını çalıştırır. Kullanmayacağınızı silmenizde sakınca yoktur ancak [index.js](./index.js) dosyası ayrıyeten [fetch.js](./fetch.js) dosyasını da gerektirir.
 ## Çalıştırmak
