@@ -14,7 +14,7 @@ let sfetch = async (...args)=>{
         return sfetch(...inQueue.shift())
     }else{
         if(args[1]&&typeof args[1]=="function") args[1]=args[1]()
-        let currPromise =  fetch(...args).catch(e=>{
+        let currPromise =  fetch(...args.slice(0,2)).catch(e=>{
             let tries = isNaN(args[args.length-1])?1:args.pop()
             if(tries<5){
                 return sfetch(...args.concat(tries+1))
@@ -26,7 +26,7 @@ let sfetch = async (...args)=>{
         currentPromises.push(currPromise)
         return currPromise.then(e=>e?e.buffer():console.error(args[1].data.slice(0,256))).then(e=>{
             currentPromises.splice(currentPromises.indexOf(currPromise),1)
-            return e
+            return args[2]?args[2](e):e
         })
     }
 }
@@ -91,7 +91,7 @@ let luacFile = (e,from,seviye,optionalReadData)=>{
                 "User-Agent":"Rhetorical"
             },
             body:optionalReadData||fs.readFileSync(e)
-        }}).then(buff=>{
+        }},buff=>{
             let pathToUse =noLuacDir?e:path.join(prefixToPath,difference,baseName)
             pathToUse=pathToUse.replace(/\.lua$/,"")+".luac"
             let currFileExists = fs.existsSync(pathToUse)
