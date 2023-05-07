@@ -168,6 +168,7 @@ if(fs.existsSync(AYARLAR_PATH)){
                             let yeniChecksum = basitChecksum(data)
                             if(checksums[e] != yeniChecksum){
                                 luacFile(e,from,seviye)
+                                checksums[e] = yeniChecksum
                             }
                         })
                     })
