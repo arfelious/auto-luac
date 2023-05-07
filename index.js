@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const fetch = require('./fetch')
-const AYARLAR_PATH = path.join(__dirname, 'ayarlar.txt')
+const AYARLAR_PATH = process.cwd()+"/ayarlar.txt"
 const ESZAMANLI_FETCH = 3
 let currentPromises = []
 let inQueue = []
@@ -24,7 +24,7 @@ let sfetch = async (...args)=>{
             }
         })
         currentPromises.push(currPromise)
-        return currPromise.then(e=>e?e.buffer():console.log(args[1].data.slice(0,256))).then(e=>{
+        return currPromise.then(e=>e?e.buffer():console.error(args[1].data.slice(0,256))).then(e=>{
             currentPromises.splice(currentPromises.indexOf(currPromise),1)
             return e
         })
@@ -105,10 +105,12 @@ let luacFile = (e,from,seviye,optionalReadData)=>{
 }
 if(fs.existsSync(AYARLAR_PATH)){
      config = parseConfFile(fs.readFileSync(AYARLAR_PATH, 'utf8'))
-     console.log(config)
+     if(pref("logConfig"))console.info(config)
      isLogging = !pref("nolog","logsuz")
      let klasorlerVeDosyalar = pref("klasörler","seçilenler","dirs")
      let baslangicLuacsiz = pref("noLuacOnStart","başlangıçLuacsız")
+     let izlenenKlasorler = 0
+     let izlenenDosyalar = 0
         if(klasorlerVeDosyalar){
             let seviye = pref("seviye","level")||"3"
             let istisnalar = pref("istisnalar","exceptions")||[]
@@ -130,6 +132,7 @@ if(fs.existsSync(AYARLAR_PATH)){
                 if(!fs.existsSync(e))return
                 if(istisnalar[path.resolve(e)])return console.error(`İstisna olarak belirtilen "${e}" konumundaki değişimler izlenmeyecek.`)
                 if(fs.statSync(e).isDirectory()){
+                    izlenenKlasorler++
                     fs.watch(e, (eventType, filename) => {
                         if(eventType=="rename"&&filename&&checksums[path.join(e,filename)]===undefined){
                             let newE = e.split(/\/|\\/).pop()
@@ -141,6 +144,7 @@ if(fs.existsSync(AYARLAR_PATH)){
                         recWatch(path.join(e,f),i,a,from?path.join(from,newE):newE)
                     })
                 }else if(e.endsWith(".lua")){
+                    izlenenDosyalar++
                     let file;
                     while(currentPromises.length>=ESZAMANLI_FETCH){
                         await Promise.all(currentPromises)
@@ -154,7 +158,7 @@ if(fs.existsSync(AYARLAR_PATH)){
                     if(file){
                         checksums[e] = basitChecksum(file)
                         if(!baslangicLuacsiz)luacFile(e,from,seviye,file)
-                    }else if(file===undefined) console.error("Okunamadığı için derlenmeyecek, dosya değişimi durumunda tekrar denenecek.")
+                    }else if(file===undefined)console.error("Okunamadığı için derlenmeyecek, dosya değişimi durumunda tekrar denenecek.")
                     fs.watchFile(e, (curr, prev) => {
                         fs.readFile(e, 'utf8', (err, data) => {
                             if (err){
@@ -169,8 +173,10 @@ if(fs.existsSync(AYARLAR_PATH)){
                     })
                 }
             })
+            if(isLogging)console.info(currTimeStamp()+izlenenKlasorler+" klasör ve "+izlenenDosyalar+" dosya izleniyor.")
+            if(izlenenKlasorler==0&&izlenenDosyalar==0)console.error("İzlenecek klasör veya dosya bulunamadı. Sonlandırılıyor.")
         }else console.error("Klasörler belirtilmemiş.")
 
 }else{
-    console.error('ayarlar.txt dosyası bulunmuyor')
+    console.error('ayarlar.txt dosyası bulunamadı.')
 }
