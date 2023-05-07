@@ -6,6 +6,7 @@
 
 seçilenler=../../luac-test                                 #Birden fazla belirtirken : ile ayırın
 istisnalar=../../luac-test/util:../luac-test/test          #Birden fazla belirtirken : ile ayırın
-hatauyarı                                               # Derleme hatası durumunda windows uyarı bildirimi sesi çalınır                                        # İlk açılışta tüm dosyaları derlemez, sadece dosyalar değiştirildiğinde derler
+hataUyarı                                                  # Derleme hatası durumunda windows uyarı bildirimi sesi çalınır
+başlangıçLuacsız                                           # Eklendiğinde ilk açılışta tüm dosyaları derlemez, sadece dosyalar değiştirildiğinde derler
 logConfig                                               # Konfigürasyon ayarlarını başlangıçta gösterir
-luacKlasörsüz
+luacKlasörsüz                                           # Eklendiğinde derlenen dosyalar aynı konuma .luac dosyası olarak kaydedilir
