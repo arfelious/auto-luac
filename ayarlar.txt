@@ -1,0 +1,10 @@
+# "#" karakterinden sonraki kısımlar okunmaz, yorum satırı olarak kullanılabilir
+#Konumları tam konum olarak da göreceli konum olarak da belirtebilirsiniz
+#Tam konum örneği: C:\Users\KullanıcıAdı\Desktop\klasör
+#Göreceli konum örneği: ../klasör
+
+
+seçilenler=../luac-test                                 #Birden fazla belirtirken : ile ayırın
+istisnalar=../luac-test/util:../luac-test/test          #Birden fazla belirtirken : ile ayırın
+hatauyarı                                               # Derleme hatası durumunda windows uyarı bildirimi sesi çalınır
+başlangıçLuacsız                                        # İlk açılışta tüm dosyaları derlemez, sadece dosyalar değiştirildiğinde derler
