@@ -159,7 +159,7 @@ if(fs.existsSync(AYARLAR_PATH)){
                         checksums[e] = basitChecksum(file)
                         if(!baslangicLuacsiz)luacFile(e,from,seviye,file)
                     }else if(file===undefined)console.error("Okunamadığı için derlenmeyecek, dosya değişimi durumunda tekrar denenecek.")
-                    fs.watchFile(e, (curr, prev) => {
+                    fs.watchFile(e, () => {
                         fs.readFile(e, 'utf8', (err, data) => {
                             if (err){
                                 console.error(`Hata: ${e} dosyası okunamadı.`)
