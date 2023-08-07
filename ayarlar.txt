@@ -4,9 +4,9 @@
 #Göreceli konum örneği: ../klasör
 
 
-seçilenler=../../luac-test                                 #Birden fazla belirtirken : ile ayırın
-istisnalar=../../luac-test/util:../luac-test/test          #Birden fazla belirtirken : ile ayırın
-hataUyarı                                                  # Derleme hatası durumunda windows uyarı bildirimi sesi çalınır
-başlangıçLuacsız                                           # Eklendiğinde ilk açılışta tüm dosyaları derlemez, sadece dosyalar değiştirildiğinde derler
-logConfig                                               # Konfigürasyon ayarlarını başlangıçta gösterir
-luacKlasörsüz                                           # Eklendiğinde derlenen dosyalar aynı konuma .luac dosyası olarak kaydedilir
+seçilenler=../../luac-test                                 #Birden fazla belirtirken + ile ayırın
+istisnalar=../../luac-test/util+../luac-test/test          #Birden fazla belirtirken + ile ayırın
+hataUyarı                  # Derleme hatası durumunda windows uyarı bildirimi sesi çalınır
+başlangıçLuacsız           # Eklendiğinde ilk açılışta derlemez, sadece değiştikçe derler
+logConfig                  # Konfigürasyon ayarlarını başlangıçta gösterir
+luacKlasörsüz              # Eklendiğinde derlenen dosyalar aynı konuma .luac dosyası olarak kaydedilir

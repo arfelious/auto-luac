@@ -14,6 +14,6 @@ Ayarlar dosyasına `hataUyarı` metnini yeni bir satır olarak ekleyerek derleme
 
 Ayarlar dosyasına `logsuz` metnini yeni bir satır olarak ekleyerek derlenen ve yeniden derlenen dosyaların isminin gözükmesini engelleyebilirsiniz, hata mesajları yine gözükecektir.
 
-Birden fazla değer belirtilebilen şeylerde (istisnalar ve seçilenler gibi) diğer değerleri `:` ile ayırabilirsiniz.
+Birden fazla değer belirtilebilen şeylerde (istisnalar ve seçilenler gibi) diğer değerleri `+` ile ayırabilirsiniz.
 
 İstisnalar ve seçilenler için klasör belirttiğinizde tercihiniz o klasörün içindeki tüm konumlar için geçerli olur.

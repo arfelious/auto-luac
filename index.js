@@ -39,7 +39,7 @@ let parseConfFile = text=>{
         if(!key) return
         key=key.trim().toLowerCase()
         if(!value) return conf[key] = true
-        let splitTest = value.split(':')
+        let splitTest = value.split('+')
         if(splitTest.length > 1) {
             conf[key] = splitTest.map(x=>x.trim())
         }else{
@@ -99,7 +99,7 @@ let luacFile = (e,from,seviye,optionalReadData)=>{
             if(!hasError){
             fs.writeFileSync(pathToUse,buff)
             if(isLogging)console.info(currTimeStamp()+e+" dosyası "+(currFileExists?"yeniden ":"")+"derlendi.")
-            }else console.error(currTimeStamp()+e+" dosyası derlenirken hata oluştu.\n"+buff.toString()+(pref("warnwhenerror","hatauyarı")?"\u0007":""))
+            }else console.error(currTimeStamp()+e+" dosyası derlenirken hata oluştu.\n"+buff.toString()+(pref("warnOnError","hatauyarı")?"\u0007":""))
         }).catch(e=>console.error(e))
     
 }
